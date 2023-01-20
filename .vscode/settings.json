@@ -1,0 +1,36 @@
+{
+  "editor.fontLigatures": true,
+  "eslint.codeAction.disableRuleComment": {},
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "explorer.confirmDelete": false,
+  "eslint.codeAction.showDocumentation": {},
+  "workbench.colorTheme": "Alabaster Light",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorWidth": 1,
+
+  "cSpell.userWords": ["chmod", "mkdir", "rsync"],
+  "editor.suggestSelection": "first",
+  "editor.folding": true,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.lineHeight": 20,
+  "editor.lineNumbers": "on",
+  "editor.minimap.enabled": false,
+  "editor.occurrencesHighlight": false,
+  "editor.overviewRulerBorder": false,
+  "editor.renderLineHighlight": "none",
+  "editor.scrollbar.horizontal": "hidden",
+  "explorer.openEditors.visible": 0,
+  "workbench.activityBar.visible": true,
+  "workbench.editor.showIcons": true,
+  "workbench.statusBar.visible": false,
+  "cSpell.words": ["exante", "flubber", "riskarray", "riskarrays"],
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, tsconfig.json, .babelrc, .editorconfig, .eslintignore, .eslintrc.js, .gitignore, .gitlab-ci.yml, .npmrc, .prettierrc.json, .stylelintrc, jest-setup.js, jest.config.js, README.md, rollup.config.js, svgTransform.js, sonar-project.properties, Dockerfile, ENTRY_SCREEN.md, config-overrides.js, .prettierrc.yaml, .env, .env.development"
+  }
+}
