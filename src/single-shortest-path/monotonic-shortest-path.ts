@@ -45,7 +45,6 @@ const search = (source: number, graph: WeightedDigraph, desc = false) => {
 
   while (queue.length > 0) {
     const current = queue.shift();
-    console.log("Current: " + current);
     if (current === undefined) continue;
 
     const currentWeight = weights[current];

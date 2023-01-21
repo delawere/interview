@@ -1,4 +1,4 @@
-import WeightedDigraph from "../common/weighted-digraph";
+import { createAndFillGraph } from "../utils/createAndFillGraph";
 import { monotonicShortestPath } from "./monotonic-shortest-path";
 
 const testCases = [
@@ -74,17 +74,6 @@ const testCases = [
     expectResult: [0, 2, 3],
   },
 ];
-
-const createAndFillGraph = (n: number, relations: number[][]) => {
-  const graph = new WeightedDigraph(n);
-
-  for (let relation of relations) {
-    const [v, w, weight] = relation;
-    graph.connect(v, w, weight);
-  }
-
-  return graph;
-};
 
 describe("monotonicShortestPath", () => {
   test("should return correct result for test case 1", () => {
