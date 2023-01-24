@@ -2,7 +2,7 @@ import { createAndFillGraph } from "../utils/createAndFillGraph";
 import WeightedDigraph from "./weighted-digraph";
 
 describe("WeightedDigraph", () => {
-  test.only("should return the copy of graph", () => {
+  test("should return the copy of graph", () => {
     const graph = createAndFillGraph(6, [
       [0, 1, 2],
       [0, 2, 3],

@@ -1,34 +1,34 @@
 class TrieNode {
   char: string;
   index: number | null;
-  children: TrieNode[];
+  children: Map<string, TrieNode>;
 
   constructor(char: string = "", index: number | null = null) {
     this.char = char;
     this.index = index;
-    this.children = [];
+    this.children = new Map();
   }
 
   addChild(char: string, index: number | null = null) {
     const newChild = new TrieNode(char, index);
-    this.children.push(newChild);
+    this.children.set(char, newChild);
     return newChild;
   }
 
   hasChild(char: string) {
-    return this.children.some((t) => t.char === char);
+    return this.children.has(char);
   }
 
   getChild(char: string) {
     if (this.hasChild(char)) {
-      return this.children.find((t) => t.char === char) || null;
+      return this.children.get(char);
     }
     return null;
   }
 
   deleteChild(char: string) {
     if (this.hasChild(char)) {
-      this.children = this.children.filter((t) => t.char !== char);
+      this.children.delete(char);
     }
   }
 
@@ -37,7 +37,11 @@ class TrieNode {
   }
 
   isEmpty() {
-    return this.children.length === 0;
+    return this.children.size === 0;
+  }
+
+  setIndex(index: number) {
+    this.index = index;
   }
 }
 
@@ -48,71 +52,60 @@ class Trie {
     this.root = new TrieNode();
   }
 
-  insert(word: string, index: number | null = null) {
-    const destination = this.#insert(this.root, word, 0);
+  insert(word: string, index: number) {
+    let current = this.root;
 
-    if (destination !== null) {
-      destination.index = index;
-    }
-    return destination;
-  }
-
-  #insert(root: TrieNode | null, word: string, index: number): TrieNode | null {
-    if (!root || index === word.length) return root;
-
-    let next: TrieNode | null = null;
-
-    if (root.hasChild(word[index])) {
-      next = root.getChild(word[index]);
-    } else {
-      next = root.addChild(word[index], null);
+    for (let char of word) {
+      if (current.hasChild(char)) {
+        current = current.getChild(char) as TrieNode;
+      } else {
+        current = current.addChild(char, null);
+      }
     }
 
-    return this.#insert(next, word, index + 1);
+    current.setIndex(index);
+
+    return current;
   }
 
   search(word: string) {
-    const searchResult = this.#search(this.root, word, 0);
+    let current = this.root;
 
-    if (searchResult !== null) {
-      return searchResult.index;
+    for (let char of word) {
+      if (current.hasChild(char)) {
+        current = current.getChild(char) as TrieNode;
+      } else {
+        return -1;
+      }
     }
-    return -1;
+    return current.isEnd() ? current.index : -1;
   }
 
-  #search(root: TrieNode | null, word: string, index: number): TrieNode | null {
-    if (!root) return null;
-    if (!root.hasChild(word[index])) {
-      if (index === word.length) {
-        return root;
+  #getPath(word: string): TrieNode[] | null {
+    const path: TrieNode[] = [];
+    let current = this.root;
+
+    for (let char of word) {
+      path.push(current);
+
+      if (current.hasChild(char)) {
+        current = current.getChild(char) as TrieNode;
       } else {
         return null;
       }
     }
-    return this.#search(root.getChild(word[index]), word, index + 1);
-  }
 
-  #getPath(
-    root: TrieNode | null,
-    word: string,
-    index: number,
-    path: TrieNode[] = []
-  ): TrieNode[] {
-    if (!root) {
-      return path;
-    }
+    path.push(current);
 
-    path.push(root);
-
-    if (index === word.length || !root.hasChild(word[index])) {
-      return path;
-    }
-
-    return this.#getPath(root.getChild(word[index]), word, index + 1, path);
+    return current.isEnd() ? path : null;
   }
 
   delete(word: string) {
-    const path = this.#getPath(this.root, word, 0);
+    const path = this.#getPath(word);
+
+    if (path === null) {
+      throw new Error("Word ${word} does not exists in the trie");
+    }
 
     path[path.length - 1].index = null;
 
@@ -122,6 +115,20 @@ class Trie {
         path[i - 1].deleteChild(current.char);
       }
     }
+  }
+
+  startsWith(word: string) {
+    let current = this.root;
+
+    for (let char of word) {
+      if (current.hasChild(char)) {
+        current = current.getChild(char) as TrieNode;
+      } else {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
 

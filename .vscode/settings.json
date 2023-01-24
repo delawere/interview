@@ -6,7 +6,7 @@
   },
   "explorer.confirmDelete": false,
   "eslint.codeAction.showDocumentation": {},
-  "workbench.colorTheme": "Alabaster Light",
+  "workbench.colorTheme": "Alabaster Dark",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.cursorBlinking": "smooth",

@@ -2,7 +2,7 @@ import { times } from "lodash";
 import { Trie } from "./trie";
 
 describe("Trie", () => {
-  test.only("should works fine", () => {
+  test("should works fine", () => {
     const trie = new Trie();
 
     trie.insert("hello", 0);
@@ -31,5 +31,9 @@ describe("Trie", () => {
 
     trie.delete("low");
     expect(trie.search("low")).toEqual(-1);
+
+    trie.insert("apple", 0);
+
+    expect(trie.startsWith("app")).toBeTruthy();
   });
 });
